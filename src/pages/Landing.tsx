@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Clock, Users, ChefHat, ArrowRight, Utensils, Star, Sparkles, Zap, Shield } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import EasterEgg from '../components/Common/EasterEgg';
 
 const Landing: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [showEasterEgg, setShowEasterEgg] = useState(false);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -16,6 +18,10 @@ const Landing: React.FC = () => {
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
+
+  const handleEasterEggClick = () => {
+    setShowEasterEgg(true);
+  };
 
   return (
     <div className="min-h-screen cosmic-gradient relative overflow-hidden">
@@ -71,7 +77,10 @@ const Landing: React.FC = () => {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16 relative z-10">
         <div className="text-center mb-12 sm:mb-20">
           <div className="mb-8">
-            <div className="inline-flex items-center space-x-2 glass-morphism px-6 py-3 rounded-full border border-white/20 mb-8 hover-lift cosmic-glow">
+            <div 
+              className="inline-flex items-center space-x-2 glass-morphism px-6 py-3 rounded-full border border-white/20 mb-8 hover-lift cosmic-glow cursor-pointer transition-all duration-300 hover:scale-105"
+              onClick={handleEasterEggClick}
+            >
               <Star className="w-5 h-5 text-blue-400" />
               <span className="text-blue-300 text-sm font-medium">Smart Digital Ordering</span>
               <Sparkles className="w-5 h-5 text-purple-400" />
@@ -192,6 +201,9 @@ const Landing: React.FC = () => {
           ))}
         </div>
       </main>
+
+      {/* Easter Egg Modal */}
+      <EasterEgg isOpen={showEasterEgg} onClose={() => setShowEasterEgg(false)} />
     </div>
   );
 };
