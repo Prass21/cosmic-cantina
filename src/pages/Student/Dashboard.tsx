@@ -498,7 +498,7 @@ const StudentDashboard: React.FC = () => {
                 const canAddToCart = item.quantity_available > 0;
                 
                 return (
-                  <div key={item.id} className={`glass-card rounded-xl overflow-hidden hover-lift transition-all duration-300 ${isOutOfStock ? 'opacity-60' : ''}`}>
+                  <div key={item.id} className={`glass-card rounded-xl overflow-hidden hover-lift transition-all duration-300 flex flex-col ${isOutOfStock ? 'opacity-60' : ''}`}>
                     <div className="relative">
                       <img
                         src={item.image_url}
@@ -517,34 +517,40 @@ const StudentDashboard: React.FC = () => {
                         </div>
                       )}
                     </div>
-                    <div className="p-6">
+                    
+                    {/* Card Content - Flex grow to push bottom content down */}
+                    <div className="p-6 flex flex-col flex-grow">
                       <div className="flex justify-between items-start mb-2">
                         <h3 className="text-xl font-semibold text-white">{item.name}</h3>
                         <span className="text-2xl font-bold cosmic-text">₹{item.price}</span>
                       </div>
-                      <p className="text-gray-400 mb-4">{item.description}</p>
-                      <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-                        <span>Serves: {item.serves}</span>
-                        <span className={`font-medium ${isOutOfStock ? 'text-red-400' : 'text-green-400'}`}>
-                          Available: {item.quantity_available}
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm font-medium text-cosmic-400">{item.canteen_name}</span>
-                        <button
-                          onClick={() => addToCart(item)}
-                          disabled={!canAddToCart || addingToCart === item.id}
-                          className={`flex items-center space-x-2 ios-button text-white px-4 py-2 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed ${
-                            canAddToCart ? 'cosmic-glow' : ''
-                          }`}
-                        >
-                          <Plus className="w-4 h-4" />
-                          <span>
-                            {addingToCart === item.id ? 'Adding...' : 
-                             isOutOfStock ? 'Out of Stock' : 
-                             'Add to Cart'}
+                      <p className="text-gray-400 mb-4 flex-grow">{item.description}</p>
+                      
+                      {/* Bottom section - Always at bottom */}
+                      <div className="mt-auto">
+                        <div className="flex items-center justify-between text-sm text-gray-500 mb-3">
+                          <span>Serves: {item.serves}</span>
+                          <span className={`font-medium ${isOutOfStock ? 'text-red-400' : 'text-green-400'}`}>
+                            Available: {item.quantity_available}
                           </span>
-                        </button>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm font-medium text-cosmic-400">{item.canteen_name}</span>
+                          <button
+                            onClick={() => addToCart(item)}
+                            disabled={!canAddToCart || addingToCart === item.id}
+                            className={`flex items-center space-x-2 ios-button text-white px-4 py-2 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed ${
+                              canAddToCart ? 'cosmic-glow' : ''
+                            }`}
+                          >
+                            <Plus className="w-4 h-4" />
+                            <span>
+                              {addingToCart === item.id ? 'Adding...' : 
+                               isOutOfStock ? 'Out of Stock' : 
+                               'Add to Cart'}
+                            </span>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
